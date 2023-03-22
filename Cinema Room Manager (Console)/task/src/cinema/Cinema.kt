@@ -1,18 +1,34 @@
 package cinema
 
-const val ROW_NUMBER = 7
-const val SEAT_NUMBER = 8
-const val HEADERS = "Cinema:\n  1 2 3 4 5 6 7 8"
-const val ROW_TEMPLATE = "%d %s %s %s %s %s %s %s %s"
-val cinema = Array(ROW_NUMBER) { Array(SEAT_NUMBER) { "S" } }
+
+const val ROWS_PROMPT = "Enter the number of rows:"
+const val SEATS_PROMPT = "Enter the number of seats in each row:"
+const val FRONT_PRICE = 10
+const val BACK_PRICE = 8
+const val SMALL_AUDITORIUM_LIMIT = 60
 
 fun main() {
-    printCinema()
+    val rowNumber = enterNumber(ROWS_PROMPT)
+    val seatNumber = enterNumber(SEATS_PROMPT)
+    val income = calcTotalIncome(rowNumber, seatNumber)
+    printIncome(income)
 }
 
-fun printCinema() {
-    println(HEADERS)
-    cinema.forEachIndexed { i, row ->
-        println(ROW_TEMPLATE.format(i + 1, *row))
+fun enterNumber(prompt: String): Int {
+    println(prompt)
+    return readln().toInt()
+}
+
+fun calcTotalIncome(rowNumber: Int, seatNumber: Int): Int {
+    val totalSeats = rowNumber * seatNumber
+    if (totalSeats <= SMALL_AUDITORIUM_LIMIT) {
+        return totalSeats * FRONT_PRICE
     }
+    val firstRows = rowNumber / 2
+    return firstRows * seatNumber * FRONT_PRICE +
+            (rowNumber - firstRows) * seatNumber * BACK_PRICE
+}
+
+fun printIncome(income: Int) {
+    println("Total income:\n\$$income")
 }
