@@ -1,0 +1,1 @@
+fun main() = "abc".toInt()
