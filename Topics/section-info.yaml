@@ -8,3 +8,5 @@ content:
 - What is an exception
 - Hierarchy of exceptions
 - Taming exceptions
+- The try-catch statement
+- Floating-point types
